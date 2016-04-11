@@ -2,7 +2,7 @@
 const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
-// const io = require("socket.io")(http);
+const io = require("socket.io")(http);
 const path = require("path");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
@@ -11,6 +11,7 @@ const mongoose = require("mongoose");
 const handlebars = require("express-handlebars");
 
 require("dotenv").config();
+
 require("dotenv").load();
 var models = require("./models");
 var db = mongoose.connection;
@@ -66,48 +67,54 @@ passport.use(new strategy.Twitter({
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
     callbackURL: "/auth/twitter/callback"
-	}, 
-	function(token, token_secret, profile, done) {
-	    // What goes here? Refer to step 4.
-		models.User.findOne({ "twitterID": profile.id }, function(err, user) {
-			// (1) Check if there is an error. If so, return done(err);
-			if(err) {
-				console.log(err);
-				return done(err);
-			}
-			if(!user) {
-	    		// (2) since the user is not found, create new user.
-	    		// Refer to Assignment 0 to how create a new instance of a model
-	    		var newUser = new models.User({
-	    			"twitterID": profile.id,
+  },
+  function(token, tokenSecret, profile, done) {
+    	models.User.findOne({ "twitterID": profile.id }, function(err, user) {
+    		if(err){
+    			return done(err);
+    		}
+    		if(!user) {
+				var newUser = new models.User({
+		    		"twitterID": profile.id,
 		    		"token": token,
 		    		"username": profile.username,
 		    		"displayName": profile.displayName,
-		    		"photo": profile.photos[0]
-	    		});
-	    		newUser.save(afterSaving);
-	    		return done(null, profile);
-			} 
-			else {
-	    		// (3) since the user is found, update user’s information
-	    		process.nextTick(function() {
-	    			user.twitterID = profile.id;
-		    		user.token = token;
-		    		user.username = profile.username;
-		    		user.displayName = profile.displayName;
-		    		user.photo = profile.photos[0];	
-		    		user.save(afterSaving);
-	        		return done(null, profile);
-	    		});
-			}
-			function afterSaving(err) {
-				if(err) {
-					console.log(err);
-					res.send(500);
-				}
-			};
+		    		"photo": profile.photos[0].value
+				});
+
+   				newUser.save(function(err, user){
+   					if(err){
+   						console.log(err);
+   					}
+   					else{
+   						console.log("User added: " + user);
+   					}
+   				});
+   				return done(null, profile);
+    		}
+    		else {
+        		user.twitterID = profile.id;
+        		user.token = token;
+        		user.username = profile.username;
+        		user.displayName = profile.displayName;
+        		user.photo = profile.photos[0].value;
+        
+        		user.save(function(err, user){
+   					if(err){
+   						console.log(err);
+   					}
+   					else{
+   						console.log("User updated: " + user);
+   					}
+   				});
+        
+        		process.nextTick(function() {
+            		return done(null, profile);
+        		});
+    		}
   		});
-}));
+  	}
+));
 
 /* TODO: Passport serialization here */
 passport.serializeUser(function(user, done) {
@@ -133,9 +140,9 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
-// io.use(function(socket, next) {
-//     session_middleware(socket.request, {}, next);
-// });
+io.use(function(socket, next) {
+    session_middleware(socket.request, {}, next);
+});
 
 /* TODO: Server-side Socket.io here */
 

@@ -1,6 +1,8 @@
 (function($) {
     "use strict";
     /* TODO: Start your Javascript code here */
+    var socket = io();
+    console.log(socket);
 
     // You may use this for updating new message
     function messageTemplate(template) {

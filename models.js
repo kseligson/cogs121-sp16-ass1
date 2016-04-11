@@ -8,4 +8,4 @@ var UserSchema = new Mongoose.Schema({
     "photo": String
 });
 
-exports.Message = Mongoose.model('User', UserSchema);
+exports.User = Mongoose.model('User', UserSchema);
