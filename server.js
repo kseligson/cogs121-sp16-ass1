@@ -99,7 +99,7 @@ passport.use(new strategy.Twitter({
         		user.username = profile.username;
         		user.displayName = profile.displayName;
         		user.photo = profile.photos[0].value;
-        
+
         		user.save(function(err, user){
    					if(err){
    						console.log(err);
@@ -108,7 +108,7 @@ passport.use(new strategy.Twitter({
    						console.log("User updated: " + user);
    					}
    				});
-        
+
         		process.nextTick(function() {
             		return done(null, profile);
         		});
@@ -155,7 +155,7 @@ passport.use(new strategy.Facebook({
     		user.token = accessToken;
     		user.displayName = profile.displayName;
     		user.photo = profile.photos[0].value;
-    
+
     		user.save(function(err, user){
 				if(err){
 					console.log(err);
@@ -164,7 +164,7 @@ passport.use(new strategy.Facebook({
 					console.log("User updated: " + user);
 				}
 			});
-    
+
     		process.nextTick(function() {
         		return cb(null, profile);
     		});
@@ -216,7 +216,7 @@ io.on("connection", function(socket) {
 	var user = socket.request.session.passport.user;
 
 	socket.on('disconnect', function(){
-    	console.log('user disconnected'); 
+    	console.log('user disconnected');
   	});
 
 	socket.on("newsfeed", function(msg) {
@@ -226,7 +226,7 @@ io.on("connection", function(socket) {
 		    "message": msg,
 		    "posted": new Date()
 	    });
-    
+
     	io.emit("newsfeed", NewsFeed );
 	});
 });

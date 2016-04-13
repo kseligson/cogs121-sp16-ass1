@@ -183,12 +183,12 @@ h4 {
 	text-align: center;
 	color: white;
 }
-hr { 
-	margin: 10px 200px; 
+hr {
+	margin: 10px 200px;
 	border-color: white;
 	color: white;
 	opacity: 0.5;
-	filter:alpha(opacity=20); 
+	filter:alpha(opacity=20);
 }
 #loginBtn {
 	text-align: center;
@@ -221,4 +221,10 @@ header img {
 
 #rightNav {
 	float: right;
+}
+
+.cat-img {
+	border-radius: 3px;
+	width: 80%;
+	height: auto;
 }
