@@ -29,8 +29,12 @@
     <div class="container">
         <section>
             <div id="inner">
-                <form id="send_message" action="">
-                    <input id="user_input" placeholder="Type a new message and hit enter!" autocomplete="off" />
+                <form id="add_photo" action="">
+                    <h1 id="form-title">Add a Photo!</h1>
+                    <label class="control-label" id="photoUploadLabel">Select File</label>
+                    <div align="center"><input id="input" name="input" type="file" class="file-loading" style="width:250px"/></div>
+                    <input id="photoCaption" placeholder="Type a caption for your photo!" autocomplete="off" />
+                    <button type="submit" class="btn btn-primary">Add Photo</button>
                 </form>
                 <ul id="messages">
                     {{#each newsfeed}}
