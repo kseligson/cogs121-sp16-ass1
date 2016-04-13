@@ -64,7 +64,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* TODO: Use Twitter Strategy for Passport here */
-passport.use(new strategy.Twitter({
+/*passport.use(new strategy.Twitter({
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
     callbackURL: "/auth/twitter/callback"
@@ -116,7 +116,7 @@ passport.use(new strategy.Twitter({
   		});
   	}
 ));
-
+*/
 /* Facebook Strategory for Passport here */
 passport.use(new strategy.Facebook({
     clientID: process.env.FACEBOOK_APP_ID,
@@ -220,8 +220,9 @@ io.on("connection", function(socket) {
   	});
 
 	socket.on("newsfeed", function(msg) {
+		console.log(user);
 		var NewsFeed = new models.Newsfeed({
-	    	"user": user.username,
+	    	"user": user.displayName,
 	    	"photo": user.photos[0].value,
 		    "message": msg,
 		    "posted": new Date()
