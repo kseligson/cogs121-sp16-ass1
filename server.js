@@ -50,7 +50,7 @@ var session_middleware = session({
 
 // Middleware
 app.set("port", process.env.PORT || 3000);
-app.engine('html', handlebars({ defaultLayout: 'layout', extname: '.html' }));
+app.engine('html', handlebars());
 app.set("view engine", "html");
 app.set("views", __dirname + "/views");
 app.use(express.static(path.join(__dirname, "public")));
