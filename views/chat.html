@@ -11,12 +11,16 @@
     <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./css/style.min.css">
     <title>COGS 121 - Assignment 1</title>
+    <script>
+      var meow = new Audio();
+      meow.src = 'Meownow.m4a';
+    </script>
 </head>
 
 <body style="background: url('../img/catbg.jpg') repeat center center fixed;">
     <header>
         <div id="leftNav">
-            <h3>MeowNow<img src="img/pawprints.png"/></h3>
+            <h3>MeowNow<img onmousedown="meow.play()" src="img/pawprints.png"/></h3>
         </div>
         <div id="rightNav">
             <a class="logout" href="/logout">
