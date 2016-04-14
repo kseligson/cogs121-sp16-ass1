@@ -56,10 +56,10 @@
         // You may use this for updating new message
         function messageTemplate(template) {
           var blank = '';
-          if(template.message.localeCompare(blank) == 0) {
+/*          if(template.message.localeCompare(blank) == 0) {
             alert("Please enter a caption!");
             return -1;
-          }
+          }*/
             var result = '<div class="user">' +
                 '<div class="user-image">' +
                 '<img src="' + template.photo + '" alt="">' +

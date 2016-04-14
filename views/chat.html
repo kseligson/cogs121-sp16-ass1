@@ -34,14 +34,17 @@
         <section>
             <div id="inner">
                 <form id="send_message" action="">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"
+                    style="cursor:pointer;float:right;padding-top:5px;padding-right:20px;"
+                    data-toggle="modal" data-target="#myModal"></span>
                     <h1 id="form-title">Add a Photo!</h1>
 <!--                    <label class="control-label" id="photoUploadLabel">Select File</label>
                     <div align="center"><input id="input" name="input" type="file" class="file-loading" style="width:250px"/></div>
                     <input id="photoCaption" placeholder="Type a caption for your photo!" autocomplete="off" />
 -->
-                        <input class="box" id="urlText" name="url" type="url" placeholder="Add the URL of your cat photo" autocomplete="off"/>
-                        <input class="box" id="user_input" placeholder="Type a caption for your photo!" autocomplete="off" />
-                    <button type="submit" class="btn btn-primary">Add Photo</button>
+                        <input class="box" id="urlText" name="url" type="url" placeholder="Add an image URL of a cat photo!" autocomplete="off"/>
+                        <input class="box" id="user_input" placeholder="Type a caption for your photo!" autocomplete="off" required/>
+                    <button type="submit" class="btn btn-primary">Share Photo</button>
                 </form>
 
                 <ul id="messages">
@@ -64,6 +67,28 @@
                     </li>
                     {{/each}}
                 </ul>
+            </div>
+
+
+            <!-- Modal -->
+            <div id="myModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:black;">Need Help?</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>To participate in MeowNow, just insert an image URL of a cat, give it a caption, and share!</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+
+              </div>
             </div>
         </section>
     </div>
