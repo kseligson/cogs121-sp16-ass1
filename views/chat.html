@@ -35,14 +35,12 @@
             <div id="inner">
                 <form id="send_message" action="">
                     <h1 id="form-title">Add a Photo!</h1>
-                    <label class="control-label" id="photoUploadLabel">Select File</label>
+<!--                    <label class="control-label" id="photoUploadLabel">Select File</label>
                     <div align="center"><input id="input" name="input" type="file" class="file-loading" style="width:250px"/></div>
-<!--
                     <input id="photoCaption" placeholder="Type a caption for your photo!" autocomplete="off" />
 -->
-
-                        <input id="user_input" placeholder="Type a caption for your photo!" autocomplete="off" />
-
+                        <input class="box" id="urlText" name="url" type="url" placeholder="Add the URL of your cat photo" autocomplete="off"/>
+                        <input class="box" id="user_input" placeholder="Type a caption for your photo!" autocomplete="off" />
                     <button type="submit" class="btn btn-primary">Add Photo</button>
                 </form>
 

@@ -228,3 +228,8 @@ header img {
 	width: 80%;
 	height: auto;
 }
+
+.box {
+	border:1px #a4ccd5 solid;
+	border-radius:3px;
+}
