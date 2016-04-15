@@ -7,13 +7,14 @@ header{
 	left:0;
 	height:65px;
 	width:100%;
-	background-color:#f5f5f5;
-	box-shadow:0 1px 10px #9e9e9e;
+	background-color:#fafafa;
+	box-shadow:0 1px 10px #a4ccd5;
 	-webkit-overflow-scrolling:touch;
 }
 header .logout{
 		text-decoration:none;
-		color:#4fa6de;
+		font-family: 'Lato', sans-serif;
+		color:#a4ccd5;
 }
 header .logout-button{
 	height:45px;
@@ -25,7 +26,7 @@ header .logout-button{
 	right:10px;
 }
 section{
-	margin-top:65px;
+	margin-top:65px !important;
 	padding-top:25px;
 	width:100%;
 }
@@ -68,33 +69,7 @@ form>input{
 	text-align: center;
 	font-family: 'Lato', sans-serif;
 }
-.search input{
-	border:0;
-	background:0;
-	padding-top:0;
-	padding-bottom:0;
-	font-family:'Lato',sans-serif;
-	font-size:16px;
-	width:250px;
-	height:50px;
-	line-height:-50px;
-	min-height:100%;
-	position:absolute;
-	top:0;
-	left:55px;
-}
-.search-icon{
-	position:absolute;
-	top:22px;
-	left:25px;
-}
-.search{
-	position:relative;
-	height:100%;
-	width:800px;
-	margin:0 auto;
-	z-index:-5;
-}
+
 input:focus{
 	outline:0;
 }
@@ -103,22 +78,27 @@ input:focus{
 	background-color:#fafafa;
 	border:1px #a4ccd5 solid;
 	border-radius:3px;
-	list-style-type:none;
-	padding:0;
+	padding:20px;
+	padding-bottom:10px;
 	font-size:14px;
+	width: 100%;
 }
-#messages>hr:first-child{
+#photos {
+	list-style-type: none;
+}
+#photos>hr:first-child{
 	border:0;
 	height:0;
-	}
-#messages>hr{
+}
+
+#photos>hr{
 	border:0;
 	padding:0;
 	width:95%;
 	height:1px;
 	background:#e0e0e0;
 }
-#messages>li{
+#photos>li{
 	padding:20px;
 	padding-bottom:10px;
 }
@@ -162,7 +142,7 @@ footer{
 	#inner{
 		width:95%;
 	}
-	#messages{
+	#photos{
 		margin-top:20px;
 	}
 }

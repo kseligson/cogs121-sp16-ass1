@@ -47,25 +47,11 @@
                     <button type="submit" class="btn btn-primary">Share Photo</button>
                 </form>
 
-                <ul id="messages">
-                    {{#each newsfeed}}
-                    <hr>
-                    <li>
-                        <div class="user">
-                            <div class="user-image">
-                                <img src="{{photo}}" alt="">
-                            </div>
-                            <div class="user-info">
-                                <span class="username">{{username}}</span>
-                                <br/>
-                                <span class="posted">{{posted}}</span>
-                            </div>
-                        </div>
-                        <div class="message-content">
-                            {{message}}
-                        </div>
-                    </li>
-                    {{/each}}
+                <ul id="photos">
+                    <div class="row">
+                        {{#each newsfeed}}
+                        {{/each}}
+                    </div>
                 </ul>
             </div>
 

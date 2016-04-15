@@ -16,8 +16,9 @@ var FacebookUserSchema = new Mongoose.Schema({
 });
 
 var NewsfeedSchema = new Mongoose.Schema({
-		"user": String,
-    "message": String,
+	"user": String,
+    "caption": String,
+    "profilephoto": String,
     "photo": String,
     "posted": Date
 });

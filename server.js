@@ -219,12 +219,12 @@ io.on("connection", function(socket) {
     	console.log('user disconnected');
   	});
 
-	socket.on("newsfeed", function(msg) {
-		console.log(user);
+	socket.on("newsfeed", function(data) {
 		var NewsFeed = new models.Newsfeed({
 	    	"user": user.displayName,
-	    	"photo": user.photos[0].value,
-		    "message": msg,
+	    	"profilephoto": user.photos[0].value,
+		    "caption": data.caption,
+        "photo": data.url,
 		    "posted": new Date()
 	    });
 
