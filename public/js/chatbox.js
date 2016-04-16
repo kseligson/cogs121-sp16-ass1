@@ -17,7 +17,9 @@
             alert("Please enter a caption!");
             return -1;
           }*/
-            var result = '<div class="col-xs-6" id="messages"><div class="user">' +
+          console.log(template);
+          console.log(template._id);
+            var result = '<div class="messages" id="post' + template._id + '"><div class="user">' +
                 '<div class="user-image">' +
                 '<img src="' + template.profilephoto + '" alt="">' +
                 '</div>' +
@@ -48,4 +50,4 @@ $('#send_message').submit(function(e){
       $('#user_input').val('');
       $('#urlText').val('');
       return false;
-    });
+});

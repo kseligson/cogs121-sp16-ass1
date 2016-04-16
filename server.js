@@ -11,22 +11,21 @@ const mongoose = require("mongoose");
 const handlebars = require("express-handlebars");
 
 require("dotenv").config();
-
 require("dotenv").load();
 var models = require("./models");
 var db = mongoose.connection;
 
-var router = { /* TODO */
-	index: require("./routes/index"),
+var router = {
+  index: require("./routes/index"),
 	chat: require("./routes/chat")
 };
 
 var parser = {
-    body: require("body-parser"),
-    cookie: require("cookie-parser")
+  body: require("body-parser"),
+  cookie: require("cookie-parser")
 };
 
-var strategy = { /* TODO */
+var strategy = {
 	Twitter: require("passport-twitter").Strategy,
 	Facebook: require("passport-facebook").Strategy
 };
@@ -41,11 +40,11 @@ var db = mongoose.connection;
 
 // session middleware
 var session_middleware = session({
-    key: "session",
-    secret: process.env.SESSION_SECRET,
-    saveUninitialized: true,
-    resave: true,
-    store: new MongoStore({ mongooseConnection: db })
+  key: "session",
+  secret: process.env.SESSION_SECRET,
+  saveUninitialized: true,
+  resave: true,
+  store: new MongoStore({ mongooseConnection: db })
 });
 
 // Middleware
@@ -59,71 +58,63 @@ app.use(parser.body.urlencoded({ extended: true }));
 app.use(parser.body.json());
 app.use(require('method-override')());
 app.use(session_middleware);
-/* TODO: Passport Middleware Here*/
+
+/* Passport Middleware */
 app.use(passport.initialize());
 app.use(passport.session());
 
-/* TODO: Use Twitter Strategy for Passport here */
-/*passport.use(new strategy.Twitter({
+/* Twitter Strategy for Passport */
+passport.use(new strategy.Twitter({
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
     callbackURL: "/auth/twitter/callback"
   },
+
   function(token, tokenSecret, profile, done) {
-    	models.TwitterUser.findOne({ "twitterID": profile.id }, function(err, user) {
-    		if(err){
-    			return done(err);
-    		}
-    		if(!user) {
-				var newUser = new models.TwitterUser({
-		    		"twitterID": profile.id,
-		    		"token": token,
-		    		"username": profile.username,
-		    		"displayName": profile.displayName,
-		    		"photo": profile.photos[0].value
-				});
+  	models.TwitterUser.findOne({ "twitterID": profile.id }, function(err, user) {
+  		if(err){
+  			return done(err);
+  		}
+  		if(!user) {
+			var newUser = new models.TwitterUser({
+    		"twitterID": profile.id,
+    		"token": token,
+    		"username": profile.username,
+    		"displayName": profile.displayName,
+    		"photo": profile.photos[0].value
+			});
+      newUser.save(afterSaving);
+				return done(null, profile);
+      }
+      else {
+  		  user.twitterID = profile.id;
+  		  user.token = token;
+  		  user.username = profile.username;
+  		  user.displayName = profile.displayName;
+  		  user.photo = profile.photos[0].value;
 
-   				newUser.save(function(err, user){
-   					if(err){
-   						console.log(err);
-   					}
-   					else{
-   						console.log("User added: " + user);
-   					}
-   				});
-   				return done(null, profile);
-    		}
-    		else {
-        		user.twitterID = profile.id;
-        		user.token = token;
-        		user.username = profile.username;
-        		user.displayName = profile.displayName;
-        		user.photo = profile.photos[0].value;
+  		  user.save(afterSaving);
 
-        		user.save(function(err, user){
-   					if(err){
-   						console.log(err);
-   					}
-   					else{
-   						console.log("User updated: " + user);
-   					}
-   				});
-
-        		process.nextTick(function() {
-            		return done(null, profile);
-        		});
-    		}
-  		});
-  	}
+  		  process.nextTick(function() {
+          return done(null, profile);
+  		  });
+      }
+      function afterSaving(err) {
+        if(err) {
+          console.log(err);
+        }
+      }
+  	});
+  }
 ));
-*/
-/* Facebook Strategory for Passport here */
+
+/* Facebook Strategory for Passport */
 passport.use(new strategy.Facebook({
-    clientID: process.env.FACEBOOK_APP_ID,
-    clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "/auth/facebook/callback",
-    profileFields: ['id', 'displayName', 'photos']
-  },
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  callbackURL: "/auth/facebook/callback",
+  profileFields: ['id', 'displayName', 'photos']},
+  
   function(accessToken, refreshToken, profile, cb) {
   	console.log("Profile:");
   	console.log(profile);
@@ -138,18 +129,18 @@ passport.use(new strategy.Facebook({
 	    		"token": accessToken,
 	    		"displayName": profile.displayName,
 	    		"photo": profile.photos[0].value
-			});
+        });
 
-			newUser.save(function(err, user){
-				if(err){
-					console.log(err);
-				}
-				else{
-					console.log("User added: " + user);
-				}
-			});
-			return cb(null, profile);console.log("Creating new user");
-    	}
+        newUser.save(function(err, user){
+				  if(err){
+            console.log(err);
+          }
+          else{
+            console.log("User added: " + user);
+          }
+        });
+        return cb(null, profile);console.log("Creating new user");
+      }
     	else {
     		user.facebookId = profile.id;
     		user.token = accessToken;
@@ -157,24 +148,29 @@ passport.use(new strategy.Facebook({
     		user.photo = profile.photos[0].value;
 
     		user.save(function(err, user){
-				if(err){
-					console.log(err);
-				}
-				else{
-					console.log("User updated: " + user);
-				}
-			});
+				  if(err){
+            console.log(err);
+          }
+          else{
+            console.log("User updated: " + user);
+          }
+        });
 
     		process.nextTick(function() {
-        		return cb(null, profile);
+        	return cb(null, profile);
     		});
-
     	}
+
+      function afterSaving(err) {
+        if(err) {
+          console.log(err);
+        }
+      }
     });
   }
 ));
 
-/* TODO: Passport serialization here */
+/* Passport Serialization */
 passport.serializeUser(function(user, done) {
     done(null, user);
 });
@@ -183,56 +179,58 @@ passport.deserializeUser(function(user, done) {
 });
 
 // Routes
-/* TODO: Routes for OAuth using Passport */
 app.get("/", router.index.view);
-// More routes here if needed
 app.get("/chat", router.chat.view);
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback',
     passport.authenticate('twitter', {
         successRedirect: '/chat',
         failureRedirect: '/'
-    }));
+}));
 app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
-
 app.get('/auth/facebook',
   passport.authenticate('facebook'));
-
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', {
-  		failureRedirect: '/',
-  		successRedirect: '/chat'
-  	}));
+      failureRedirect: '/',
+      successRedirect: '/chat'
+}));
 
 io.use(function(socket, next) {
     session_middleware(socket.request, {}, next);
 });
 
-/* TODO: Server-side Socket.io here */
+/* Server-side Socket.io */
 io.on("connection", function(socket) {
-	var user = socket.request.session.passport.user;
+  var user = socket.request.session.passport.user;
 
-	socket.on('disconnect', function(){
-    	console.log('user disconnected');
-  	});
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
 
-	socket.on("newsfeed", function(data) {
-		var NewsFeed = new models.Newsfeed({
-	    	"user": user.displayName,
-	    	"profilephoto": user.photos[0].value,
-		    "caption": data.caption,
-        "photo": data.url,
-		    "posted": new Date()
-	    });
+  socket.on("newsfeed", function(data) {
+    var newNewsfeed = new models.Newsfeed({
+      "user": user.displayName,
+      "profilephoto": user.photos[0].value,
+      "caption": data.caption,
+      "photo": data.url,
+      "posted": new Date()
+    });
 
-    	io.emit("newsfeed", NewsFeed );
-	});
+    newNewsfeed.save(function(err, news){
+      if(err){
+        console.log(err);
+      }
+      io.emit("newsfeed", news );
+      console.log("Picture added: " + news);
+      console.log("\n\n\n\n");
+      console.log(news);
+    });
+  });
 });
-
-
 
 // Start Server
 http.listen(app.get("port"), function() {

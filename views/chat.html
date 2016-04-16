@@ -50,6 +50,24 @@
                 <ul id="photos">
                     <div class="row">
                         {{#each newsfeed}}
+                            <div class="messages" id="post{{id}}">
+                                <div class="user">
+                                    <div class="user-image">
+                                        <img src="{{profilephoto}}" alt=""/>
+                                    </div>
+                                    <div class="user-info">
+                                        <span class="username">{{user}}</span>
+                                        <br/>
+                                        <span class="posted">{{posted}}</span>
+                                    </div>
+                                </div>
+                                <div id="allcontent" style="text-align: center">
+                                    <img class="cat-img" src="{{photo}}" alt="cat"/>
+                                    <div class="message-content">
+                                        {{caption}}
+                                    </div>
+                                </div>
+                            </div>
                         {{/each}}
                     </div>
                 </ul>

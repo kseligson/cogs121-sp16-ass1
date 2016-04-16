@@ -73,7 +73,7 @@ form>input{
 input:focus{
 	outline:0;
 }
-#messages{
+.messages{
 	margin-top:30px;
 	background-color:#fafafa;
 	border:1px #a4ccd5 solid;
@@ -81,7 +81,7 @@ input:focus{
 	padding:20px;
 	padding-bottom:10px;
 	font-size:14px;
-	width: 100%;
+	width: 95%;
 }
 #photos {
 	list-style-type: none;
@@ -104,6 +104,7 @@ input:focus{
 }
 .user{
 	display:inline-block;
+	width: 100%;
 }
 .user-image{
 	float:left;
@@ -119,6 +120,11 @@ input:focus{
 	font-weight:bold;
 	margin-top:12px;
 	padding-bottom:12px;
+}
+.delete {
+	float: right;
+	font-size: 20px;
+	color: #a4ccd5;
 }
 .posted{
 	font-size:12px;

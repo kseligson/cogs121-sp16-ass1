@@ -23,14 +23,6 @@ var NewsfeedSchema = new Mongoose.Schema({
     "posted": Date
 });
 
-var CatPhotoSchema = new Mongoose.Schema({
-	"user": String,
-	"caption": String,
-	"photo": String,
-	"posted": Date
-});
-
 exports.TwitterUser = Mongoose.model('TwitterUser', TwitterUserSchema);
 exports.Newsfeed = Mongoose.model('Newsfeed', NewsfeedSchema);
 exports.FacebookUser = Mongoose.model('FacebookUser', FacebookUserSchema);
-exports.CatPhoto = Mongoose.model('CatPhoto', CatPhotoSchema);
